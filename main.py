@@ -1,3 +1,5 @@
+import argparse
+
 import uvicorn
 from fastapi import FastAPI
 
@@ -10,5 +12,11 @@ async def hello():
 
 
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="FastAPI server")
+    parser.add_argument(
+        "--port", type=int, default=8000, help="Port number to run the server on"
+    )
+    args = parser.parse_args()
 
-    uvicorn.run(app, host="0.0.0.0", port=9002)
+    print(f"Starting server on port {args.port}")
+    uvicorn.run(app, host="0.0.0.0", port=args.port)
